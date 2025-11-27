@@ -42,7 +42,7 @@
             z-index: -1;
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR RESPONSIF --- */
         .navbar { 
             width: 100%; 
             background: rgba(15, 15, 15, 0.8); 
@@ -68,6 +68,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
+        /* Menu Normal (Desktop) */
         .nav-menu { display: flex; align-items: center; }
         .nav-menu a { 
             color: #b0b0b0; margin-left: 20px; text-decoration: none; 
@@ -76,6 +77,71 @@
         }
         .nav-menu a:hover { color: var(--primary); }
         .nav-active { color: var(--primary) !important; font-weight: 600; }
+
+        /* Tombol Hamburger (Default Hidden) */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            background: rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+        .hamburger:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--primary);
+        }
+
+        /* --- RESPONSIVE CSS UNTUK MOBILE --- */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 14px 20px; /* Perkecil padding di HP */
+            }
+
+            .hamburger {
+                display: block; /* Munculkan tombol di HP */
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 15, 20, 0.95);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                
+                /* Animasi Slide / Toggle */
+                display: none; /* Sembunyikan default */
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            }
+
+            .nav-menu.active {
+                display: flex; /* Tampilkan saat class active ditambahkan JS */
+                animation: fadeInDown 0.3s ease forwards;
+            }
+
+            .nav-menu a {
+                margin: 10px 0;
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            .nav-menu a:hover {
+                background: rgba(255,255,255,0.05);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* --- CONTENT STYLE --- */
         .container { 
@@ -100,12 +166,12 @@
         }
         .page-header p { color: #aaa; max-width: 600px; margin: 0 auto; }
 
-        /* --- TEAM GRID (Menggunakan Flexbox agar lebih Patuh) --- */
+        /* --- TEAM GRID --- */
         .team-grid {
-            display: flex;           /* Ganti Grid ke Flex */
-            flex-wrap: wrap;         /* Agar bisa turun ke bawah */
-            justify-content: center; /* Posisi tengah */
-            gap: 40px;               /* Jarak antar kartu */
+            display: flex;           
+            flex-wrap: wrap;         
+            justify-content: center; 
+            gap: 40px;               
             max-width: 900px; 
             margin: 0 auto; 
         }
@@ -125,13 +191,11 @@
             align-items: center;
             
             /* RUMUS MATEMATIKA UNTUK 2 KOLOM */
-            /* Lebar = (100% - gap) / 2 */
             flex: 0 0 calc(50% - 40px); 
             width: calc(50% - 40px);
-            min-width: 280px; /* Batas minimal agar tidak terlalu gepeng */
+            min-width: 280px; 
         }
 
-        /* Responsif: Balik ke 1 kolom di layar HP */
         @media (max-width: 768px) {
             .team-card {
                 flex: 0 0 100%;
@@ -252,7 +316,13 @@
             <i class="fa-solid fa-brain brand-icon"></i> 
             AI Dashboard
         </div>
-        <div class="nav-menu">
+
+        <!-- TOMBOL HAMBURGER (Hanya muncul di Mobile) -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="nav-menu" id="navMenu">
             <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
             <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
             <a href="responden.html"><i class="fa-solid fa-users"></i> Responden</a>
@@ -344,6 +414,22 @@
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
 
     <script>
+      // SCRIPT UNTUK MENU HAMBURGER
+      function toggleMenu() {
+          const navMenu = document.getElementById('navMenu');
+          navMenu.classList.toggle('active');
+          
+          // Opsional: Ganti ikon dari bars ke times (X)
+          const icon = document.querySelector('.hamburger i');
+          if (navMenu.classList.contains('active')) {
+              icon.classList.remove('fa-bars');
+              icon.classList.add('fa-xmark');
+          } else {
+              icon.classList.remove('fa-xmark');
+              icon.classList.add('fa-bars');
+          }
+      }
+
       window.addEventListener('load', function() {
           if (typeof VANTA !== 'undefined') {
               VANTA.GLOBE({
