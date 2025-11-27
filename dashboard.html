@@ -11,7 +11,6 @@
     
     <!-- 2. LIBRARY EKSTERNAL -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Plugin DataLabels -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     
     <!-- 3. SCRIPT LOKAL -->
@@ -19,10 +18,7 @@
     <script src="script.js"></script>
     
     <style>
-        /* --- RESET AGAR TAMPILAN RAPI --- */
-        * {
-            box-sizing: border-box; /* PENTING: Agar padding tidak membuat elemen melebar keluar layar */
-        }
+        * { box-sizing: border-box; }
 
         :root { 
             --primary: #ff007f;     /* Pink */
@@ -41,7 +37,7 @@
             margin: 0; 
             padding: 0; 
             min-height: 100vh;
-            overflow-x: hidden; /* Mencegah scroll horizontal */
+            overflow-x: hidden; 
         }
 
         #vanta-globe-background {
@@ -53,12 +49,11 @@
             z-index: -1;
         }
 
-        /* --- PERBAIKAN NAVBAR --- */
+        /* --- NAVBAR RESPONSIF --- */
         .navbar { 
             width: 100%; 
             background: rgba(15, 15, 15, 0.8); 
             backdrop-filter: blur(10px);
-            /* Padding kanan diperbesar (40px) agar teks paling kanan tidak mepet/tertutup scrollbar */
             padding: 14px 40px 14px 24px; 
             display: flex; 
             justify-content: space-between; 
@@ -70,42 +65,63 @@
         }
 
         .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            white-space: nowrap; /* Mencegah teks logo turun baris */
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1.3rem; font-weight: 700; color: #fff;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+            white-space: nowrap; 
         }
         .brand-icon {
             font-size: 1.5rem;
             background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .nav-menu {
-            display: flex;
-            align-items: center;
-        }
-
+        .nav-menu { display: flex; align-items: center; }
         .nav-menu a { 
-            color: #b0b0b0; 
-            margin-left: 20px; 
-            text-decoration: none; 
-            font-weight: 500; 
-            transition: color 0.3s; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 8px; 
-            white-space: nowrap; /* Mencegah teks menu turun baris */
+            color: #b0b0b0; margin-left: 20px; text-decoration: none; 
+            font-weight: 500; transition: color 0.3s; 
+            display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
         }
         .nav-menu a:hover { color: var(--primary); }
         .nav-active { color: var(--primary) !important; font-weight: 600; }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            background: rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+        .hamburger:hover { background: rgba(255,255,255,0.1); color: var(--primary); }
+
+        /* Responsive Media Query */
+        @media (max-width: 768px) {
+            .navbar { padding: 14px 20px; }
+            .hamburger { display: block; }
+            .nav-menu {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(15, 15, 20, 0.95);
+                backdrop-filter: blur(15px);
+                flex-direction: column; align-items: flex-start;
+                padding: 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                display: none;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            }
+            .nav-menu.active { display: flex; animation: fadeInDown 0.3s ease forwards; }
+            .nav-menu a { margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; }
+            .nav-menu a:hover { background: rgba(255,255,255,0.05); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .container { 
             max-width: 1200px; 
@@ -225,11 +241,16 @@
             <i class="fa-solid fa-brain brand-icon"></i> 
             AI Dashboard
         </div>
-        <div class="nav-menu">
+        
+        <!-- Hamburger -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="nav-menu" id="navMenu">
             <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
             <a href="dashboard.html" class="nav-active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
             <a href="responden.html"><i class="fa-solid fa-users"></i> Responden</a>
-            <!-- LINK BARU -->
             <a href="about.html"><i class="fa-solid fa-circle-info"></i> Tentang Kami</a>
         </div>
     </nav>
@@ -332,6 +353,19 @@
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
 
     <script>
+      function toggleMenu() {
+          const navMenu = document.getElementById('navMenu');
+          navMenu.classList.toggle('active');
+          const icon = document.querySelector('.hamburger i');
+          if (navMenu.classList.contains('active')) {
+              icon.classList.remove('fa-bars');
+              icon.classList.add('fa-xmark');
+          } else {
+              icon.classList.remove('fa-xmark');
+              icon.classList.add('fa-bars');
+          }
+      }
+
       window.addEventListener('load', function() {
           if (typeof VANTA !== 'undefined') {
               VANTA.GLOBE({
