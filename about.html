@@ -3,454 +3,127 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Tentang Kami - Kelompok 3</title>
+    <title>Tentang Kami - Tim Kelompok 3</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- IMPORT FONTAWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* --- COPY STYLE DASAR AGAR KONSISTEN --- */
         * { box-sizing: border-box; }
-
-        :root { 
-            --primary: #00d4ff; 
-            --secondary: #9d4edd;
-            --accent: #ff007f;
-            --dark: #0f0f0f; 
-            --card-bg: rgba(15, 16, 22, 0.75);
-            --glass-shadow: 0 8px 32px rgba(0, 212, 255, 0.1); 
-            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background-color: transparent; 
-            color: #e0e0e0; 
-            margin: 0; 
-            padding: 0; 
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        #vanta-globe-background {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        /* --- NAVBAR RESPONSIF --- */
-        .navbar { 
-            width: 100%; 
-            background: rgba(15, 15, 15, 0.8); 
-            backdrop-filter: blur(10px);
-            padding: 14px 40px 14px 24px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .brand-logo {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 1.3rem; font-weight: 700; color: #fff;
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
-        }
-        .brand-icon {
-            font-size: 1.5rem;
-            background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        /* Menu Normal (Desktop) */
+        :root { --primary: #00d4ff; --secondary: #9d4edd; --accent: #ff007f; --dark: #0f0f0f; --card-bg: rgba(15, 16, 22, 0.75); --glass-shadow: 0 8px 32px rgba(0, 212, 255, 0.1); --border-glass: 1px solid rgba(255, 255, 255, 0.1); }
+        body { font-family: 'Poppins', sans-serif; background-color: transparent; color: #e0e0e0; margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden; }
+        #vanta-globe-background { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+        .navbar { width: 100%; background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(10px); padding: 14px 40px 14px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 100; }
+        .brand-logo { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+        .brand-icon { font-size: 1.5rem; background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-menu { display: flex; align-items: center; }
-        .nav-menu a { 
-            color: #b0b0b0; margin-left: 20px; text-decoration: none; 
-            font-weight: 500; transition: color 0.3s; 
-            display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
-        }
+        .nav-menu a { color: #b0b0b0; margin-left: 20px; text-decoration: none; font-weight: 500; transition: color 0.3s; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
         .nav-menu a:hover { color: var(--primary); }
         .nav-active { color: var(--primary) !important; font-weight: 600; }
-
-        /* Tombol Hamburger (Default Hidden) */
-        .hamburger {
-            display: none;
-            font-size: 1.5rem;
-            color: #fff;
-            cursor: pointer;
-            padding: 5px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 5px;
-            background: rgba(255,255,255,0.05);
-            transition: 0.3s;
-        }
-        .hamburger:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--primary);
-        }
-
-        /* --- RESPONSIVE CSS UNTUK MOBILE --- */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 14px 20px; /* Perkecil padding di HP */
-            }
-
-            .hamburger {
-                display: block; /* Munculkan tombol di HP */
-            }
-
-            .nav-menu {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(15, 15, 20, 0.95);
-                backdrop-filter: blur(15px);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                
-                /* Animasi Slide / Toggle */
-                display: none; /* Sembunyikan default */
-                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            }
-
-            .nav-menu.active {
-                display: flex; /* Tampilkan saat class active ditambahkan JS */
-                animation: fadeInDown 0.3s ease forwards;
-            }
-
-            .nav-menu a {
-                margin: 10px 0;
-                width: 100%;
-                padding: 10px;
-                border-radius: 8px;
-            }
-            .nav-menu a:hover {
-                background: rgba(255,255,255,0.05);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- CONTENT STYLE --- */
-        .container { 
-            max-width: 1100px; 
-            margin: 40px auto; 
-            padding: 0 20px; 
-            position: relative;
-            z-index: 5;
-            padding-bottom: 50px;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: -webkit-linear-gradient(right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .hamburger { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; padding: 5px; border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; background: rgba(255,255,255,0.05); transition: 0.3s; }
+        .hamburger:hover { background: rgba(255,255,255,0.1); color: var(--primary); }
+        @media (max-width: 992px) { .navbar { padding: 14px 20px; } .hamburger { display: block; } .nav-menu { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(15, 15, 20, 0.95); backdrop-filter: blur(15px); flex-direction: column; align-items: flex-start; padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.5); } .nav-menu.active { display: flex; animation: fadeInDown 0.3s ease forwards; } .nav-menu a { margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; } .nav-menu a:hover { background: rgba(255,255,255,0.05); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 5; padding-bottom: 50px; }
+        .page-header { text-align: center; margin-bottom: 50px; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 10px; background: -webkit-linear-gradient(right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .page-header p { color: #aaa; max-width: 600px; margin: 0 auto; }
-
-        /* --- TEAM GRID --- */
-        .team-grid {
-            display: flex;           
-            flex-wrap: wrap;         
-            justify-content: center; 
-            gap: 40px;               
-            max-width: 900px; 
-            margin: 0 auto; 
-        }
-
-        .team-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: var(--border-glass);
-            border-radius: 20px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            
-            /* RUMUS MATEMATIKA UNTUK 2 KOLOM */
-            flex: 0 0 calc(50% - 40px); 
-            width: calc(50% - 40px);
-            min-width: 280px; 
-        }
-
-        @media (max-width: 768px) {
-            .team-card {
-                flex: 0 0 100%;
-                width: 100%;
-            }
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
-            border-color: var(--primary);
-        }
-
-        /* Highlight special for Web Admin */
-        .card-special {
-            border-color: var(--primary);
-            background: rgba(0, 212, 255, 0.05);
-        }
+        .team-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; max-width: 900px; margin: 0 auto; }
+        .team-card { background: var(--card-bg); backdrop-filter: blur(10px); border: var(--border-glass); border-radius: 20px; padding: 30px 20px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; flex: 0 0 calc(50% - 40px); width: calc(50% - 40px); min-width: 280px; }
+        @media (max-width: 768px) { .team-card { flex: 0 0 100%; width: 100%; } }
+        .team-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2); border-color: var(--primary); }
+        .card-special { border-color: var(--primary); background: rgba(0, 212, 255, 0.05); }
+        .avatar-box { width: 100px; height: 100px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 2px solid rgba(255,255,255,0.1); font-size: 3rem; color: #fff; }
+        .card-special .avatar-box { border-color: var(--primary); color: var(--primary); box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
+        .member-name { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .member-nim { font-size: 0.9rem; color: #888; margin-bottom: 15px; font-family: monospace; }
+        .role-badge { padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-dev { background: rgba(0, 212, 255, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+        .badge-journal { background: rgba(157, 78, 221, 0.2); color: var(--secondary); border: 1px solid var(--secondary); }
+        .member-desc { margin-top: 15px; font-size: 0.9rem; color: #ccc; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+        .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; color: #fff; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; text-decoration: none; font-size: 1.2rem; margin-top: auto; }
+        .social-btn:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); border-color: transparent; transform: translateY(-3px) rotate(5deg); box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4); }
         
-        .avatar-box {
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            border: 2px solid rgba(255,255,255,0.1);
-            font-size: 3rem;
-            color: #fff;
-        }
-
-        .card-special .avatar-box {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .member-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .member-nim {
-            font-size: 0.9rem;
-            color: #888;
-            margin-bottom: 15px;
-            font-family: monospace;
-        }
-
-        .role-badge {
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-dev {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .badge-journal {
-            background: rgba(157, 78, 221, 0.2);
-            color: var(--secondary);
-            border: 1px solid var(--secondary);
-        }
-
-        .member-desc {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #ccc;
-            line-height: 1.5;
-            margin-bottom: 20px; 
-            flex-grow: 1; /* Agar deskripsi mengisi ruang kosong */
-        }
-        
-        /* --- SOCIAL LINKS --- */
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: #fff;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 1.2rem;
-            margin-top: auto; 
-        }
-        
-        .social-btn:hover {
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
-            border-color: transparent;
-            transform: translateY(-3px) rotate(5deg);
-            box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
-        }
+        /* --- PAGE NAVIGATION STYLES --- */
+        .page-nav { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #ccc; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
 
         footer { text-align: center; padding: 30px 10px; opacity: 0.7; margin-top: 50px; }
-
     </style>
 </head>
 <body>
-
     <div id="vanta-globe-background"></div>
-
     <nav class="navbar">
         <div class="brand-logo" onclick="location.href='index.html'">
-            <i class="fa-solid fa-brain brand-icon"></i> 
-            AI Dashboard
+            <i class="fa-solid fa-brain brand-icon"></i> AI Dashboard
         </div>
-
-        <!-- TOMBOL HAMBURGER (Hanya muncul di Mobile) -->
         <div class="hamburger" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
         </div>
-
         <div class="nav-menu" id="navMenu">
             <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
             <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
             <a href="responden.html"><i class="fa-solid fa-users"></i> Responden</a>
+            <a href="kalkulator.html"><i class="fa-solid fa-calculator"></i> Calculator</a>
             <a href="about.html" class="nav-active"><i class="fa-solid fa-circle-info"></i> About</a>
         </div>
     </nav>
-
     <div class="container">
         <div class="page-header">
             <h1>Kelompok 3</h1>
             <p>Tim di balik analisis dan pengembangan dashboard penggunaan AI Akademik.</p>
         </div>
-
         <div class="team-grid">
-            
-            <!-- ANGGOTA 1: PENGURUS WEB -->
             <div class="team-card card-special">
-                <div class="avatar-box">
-                    <i class="fa-solid fa-code"></i>
-                </div>
+                <div class="avatar-box"><i class="fa-solid fa-code"></i></div>
                 <div class="member-name">Fatih Taqiyyuddin</div>
                 <div class="member-nim">NIM: 4253250057</div>
                 <span class="role-badge badge-dev">Pengurus Web</span>
-                <p class="member-desc">
-                    Bertanggung jawab atas pengembangan website, visualisasi data, dan integrasi sistem dashboard.
-                </p>
-                <a href="https://www.instagram.com/fatehh_aj?igsh=OHNmZjZ2dWprbXV2" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-            </div>
-
-            <!-- ANGGOTA 2: JURNAL -->
-            <div class="team-card">
-                <div class="avatar-box">
-                    <i class="fa-solid fa-pen-nib"></i>
+                <p class="member-desc">Bertanggung jawab atas pengembangan website, visualisasi data, dan integrasi sistem dashboard.</p>
+                <div style="display: flex; gap: 10px; margin-top: auto;">
+                <a href="https://www.instagram.com/fatehh_aj?igsh=OHNmZjZ2dWprbXV2" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com/Moreyartea" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Github"><i class="fa-brands fa-github"></i></a>
                 </div>
+                
+            </div>
+            <div class="team-card">
+                <div class="avatar-box"><i class="fa-solid fa-pen-nib"></i></div>
                 <div class="member-name">Tesa Aurelio Ginting</div>
                 <div class="member-nim">NIM: 4253250037</div>
                 <span class="role-badge badge-journal">Penyusun Jurnal</span>
-                <p class="member-desc">
-                    Melakukan riset mendalam, analisis literatur, dan penyusunan naskah publikasi ilmiah.
-                </p>
-                <a href="https://www.instagram.com/teesaau.rell?igsh=MXh3cnczNG10YTk0cA==" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
+                <p class="member-desc">Melakukan riset mendalam, analisis literatur, dan penyusunan naskah secara keseluruhan.</p>
+                <a href="https://www.instagram.com/teesaau.rell?igsh=MXh3cnczNG10YTk0cA==" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram"><i class="fa-brands fa-instagram"></i></a>
             </div>
-
-            <!-- ANGGOTA 3: JURNAL -->
             <div class="team-card">
-                <div class="avatar-box">
-                    <i class="fa-solid fa-book-open"></i>
-                </div>
+                <div class="avatar-box"><i class="fa-solid fa-book-open"></i></div>
                 <div class="member-name">Revaldo Ginting</div>
                 <div class="member-nim">NIM: 4253250033</div>
                 <span class="role-badge badge-journal">Penyusun Jurnal</span>
-                <p class="member-desc">
-                    Mengumpulkan data responden, validasi metodologi survei, dan analisis hasil kualitatif.
-                </p>
-                <a href="https://www.instagram.com/valdomilo_?igsh=bmNneXBuNXBtbnUz" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
+                <p class="member-desc">Menyusun Critical Book Review (CBR), merumuskan kesimpulan penelitian, serta menyusun saran yang relevan berdasarkan hasil analisis dan temuan studi.</p>
+                <a href="https://www.instagram.com/valdomilo_?igsh=bmNneXBuNXBtbnUz" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram"><i class="fa-brands fa-instagram"></i></a>
             </div>
-
-            <!-- ANGGOTA 4: JURNAL -->
             <div class="team-card">
-                <div class="avatar-box">
-                    <i class="fa-solid fa-file-lines"></i>
-                </div>
+                <div class="avatar-box"><i class="fa-solid fa-file-lines"></i></div>
                 <div class="member-name">Mutiara Chalista Tarigan</div>
                 <div class="member-nim">NIM: 4252550009</div>
                 <span class="role-badge badge-journal">Penyusun Jurnal</span>
-                <p class="member-desc">
-                    Menyusun struktur laporan, kesimpulan analisis, dan interpretasi data statistik.
-                </p>
-                <a href="https://www.instagram.com/laa.chalistaa?igsh=aXJ6bm44NG92eTQx" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
+                <p class="member-desc">Menyusun Critical Jurnal Review (CJR), menyusun Struktur laporan, kesimpulan analisis dan interpretasi data statistik.</p>
+                <a href="https://www.instagram.com/laa.chalistaa?igsh=aXJ6bm44NG92eTQx" target="_blank" rel="noopener noreferrer" class="social-btn" title="Follow on Instagram"><i class="fa-brands fa-instagram"></i></a>
             </div>
-
         </div>
+
+        <!-- NAVIGATION BUTTONS -->
+        <div class="page-nav">
+            <a href="kalkulator.html" class="nav-btn"><i class="fa-solid fa-arrow-left"></i> Kalkulator</a>
+            <a href="index.html" class="nav-btn">Home <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
     </div>
-
-    <footer>
-        <p>© 2025 — Kelompok 3 | Analisis Data AI</p>
-    </footer>
-
-    <!-- Library Scripts -->
+    <footer><p>© 2025 — Kelompok 3 | Analisis Data AI</p></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
-
     <script>
-      // SCRIPT UNTUK MENU HAMBURGER
-      function toggleMenu() {
-          const navMenu = document.getElementById('navMenu');
-          navMenu.classList.toggle('active');
-          
-          // Opsional: Ganti ikon dari bars ke times (X)
-          const icon = document.querySelector('.hamburger i');
-          if (navMenu.classList.contains('active')) {
-              icon.classList.remove('fa-bars');
-              icon.classList.add('fa-xmark');
-          } else {
-              icon.classList.remove('fa-xmark');
-              icon.classList.add('fa-bars');
-          }
-      }
-
-      window.addEventListener('load', function() {
-          if (typeof VANTA !== 'undefined') {
-              VANTA.GLOBE({
-                el: "#vanta-globe-background",
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.00,
-                scaleMobile: 1.00,
-                color: 0x9d4edd,        /* Ungu untuk halaman About */
-                color2: 0xffffff,
-                backgroundColor: 0x0f0f0f,
-                size: 1.3,
-                introAt: 0.5
-              });
-          }
-      });
+      function toggleMenu() { const navMenu = document.getElementById('navMenu'); navMenu.classList.toggle('active'); const icon = document.querySelector('.hamburger i'); if (navMenu.classList.contains('active')) { icon.classList.remove('fa-bars'); icon.classList.add('fa-xmark'); } else { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); } }
+      window.addEventListener('load', function() { if (typeof VANTA !== 'undefined') { VANTA.GLOBE({ el: "#vanta-globe-background", mouseControls: true, touchControls: true, gyroControls: false, minHeight: 200.00, minWidth: 200.00, scale: 1.00, scaleMobile: 1.00, color: 0x9d4edd, color2: 0xffffff, backgroundColor: 0x0f0f0f, size: 1.3, introAt: 0.5 }); } });
     </script>
-
 </body>
 </html>
-
